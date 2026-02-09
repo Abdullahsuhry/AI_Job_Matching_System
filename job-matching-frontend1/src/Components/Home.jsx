@@ -1,5 +1,7 @@
 import React from "react";
-import heroImage from "../assets/hero-image.png"; // Optional hero image
+import heroImage from "../assets/react.svg"; // Fallback hero image (react.svg)
+import Upload from './Upload'
+import Chat from './Chat'
 
 const Home = () => {
   return (
@@ -27,6 +29,16 @@ const Home = () => {
         <div className="md:w-1/2 mt-10 md:mt-0">
           <img src={heroImage} alt="AI Job Matching" className="w-full rounded-lg shadow-lg" />
         </div>
+      </section>
+
+      {/* Upload / Analyze */}
+      <section className="px-6 md:px-20 py-12 bg-gray-50">
+        <Upload />
+      </section>
+
+      {/* Chatbot */}
+      <section className="px-6 md:px-20 py-12 bg-white">
+        <Chat />
       </section>
 
       {/* Features Section */}

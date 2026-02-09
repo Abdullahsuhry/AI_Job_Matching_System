@@ -1,0 +1,8 @@
+Flask>=2.3
+flask-cors
+pdfplumber
+python-docx
+scikit-learn
+numpy
+spacy
+requests

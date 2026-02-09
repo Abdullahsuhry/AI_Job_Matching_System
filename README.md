@@ -1,101 +1,69 @@
-🧠 AI-Powered Smart Job Matching & Skill Gap Analyzer
-📌 Project Description
+# AI Job Matching & Skill Gap Analyzer
 
-AI-powered web application that analyzes resumes and job descriptions using NLP and Machine Learning to calculate job match scores, identify skill gaps, recommend courses, predict salary ranges, and provide an intelligent chatbot for career guidance.
+This repository contains a React frontend and a Flask backend for an AI-powered job matching system.
 
-🎯 Features
+Quick overview
+- Frontend: `job-matching-frontend` (Vite + React + Tailwind)
+- Backend: `app/` (Flask REST API)
+- Data store: `data/jobs.json` (simple JSON file for demo)
 
-Resume parsing using NLP
+Prerequisites
+- Node.js >= 22.12.0 (or >= 20.19)
+- Python 3.10+
 
-Job description analysis
+Frontend setup
+```bash
+cd job-matching-frontend
+npm install
+npm run dev
+```
+If `npm install` fails with peer dependency errors, try:
+```bash
+npm install --legacy-peer-deps
+```
 
-Job matching score calculation
+Backend setup
+```bash
+python -m venv .venv
+.venv\Scripts\activate    # Windows
+pip install -r app/requirements.txt
+# download spaCy model (required for improved skill extraction)
+python -m spacy download en_core_web_sm
+# run the Flask app
+python -m app.run
+```
 
-Skill gap detection
+API endpoints (backend)
+- `POST /api/jobs` — add a job (JSON: `{ title, description }`)
+- `POST /api/upload` — upload resume file (form-data `file`)
+- `POST /api/match` — match resume text to stored jobs (JSON: `{ text }`)
+- `POST /api/analyze` — extract skills and detect gaps (JSON: `{ text, job_id?|job_description? }`)
 
-Course recommendation system
+- `POST /api/chat` — proxy to configured LLM provider. JSON body is forwarded to `LLM_API_URL`.
 
-Salary prediction model
+Notes
+- The backend uses simple TF-IDF + cosine similarity for matching as a starter.
+- Skill extraction uses a small vocabulary with a spaCy-based enhancement when `spacy` and the `en_core_web_sm` model are available.
+- For production use, replace `data/jobs.json` with a real database and replace TF-IDF with embeddings (BERT) for better accuracy.
 
-AI chatbot assistant
+Next tasks you can ask me to do
+- Upgrade the frontend Tailwind/PostCSS setup and resolve Vite errors.
+- Add Dockerfiles for frontend & backend.
+- Improve NLP pipeline: add transformers-based embeddings and persistent models.
+- Add unit/integration tests and a CI workflow.
 
-Interactive dashboard
+LLM / Chatbot setup
+1. Create a `.env` file next to the repository root (do NOT commit it).
+2. Add your provider info there, for example:
 
-PDF/DOCX resume upload
+```
+LLM_API_URL=https://api.your-llm.com/v1/generate
+LLM_API_KEY=sk-xxxx
+```
 
-🛠️ Tech Stack
+3. Run the backend so the `/api/chat` endpoint can forward requests to your LLM provider.
 
-Python
-
-Flask
-
-Scikit-learn
-
-Transformers (BERT)
-
-spaCy / NLTK
-
-HTML, CSS, JavaScript
-
-SQLite / MySQL
-
-OpenAI / LLM API
-
-📂 Project Structure
-AI_Job_Matching_System/
-├── app/
-├── data/
-├── models/
-├── notebooks/
-├── tests/
-├── config/
-├── README.md
-├── requirements.txt
-└── run.py
-
-⚙️ Installation
-git clone https://github.com/yourusername/AI_Job_Matching_System.git
-cd AI_Job_Matching_System
-pip install -r requirements.txt
-python run.py
-
-🤖 Machine Learning Models
-
-Job matching model (TF-IDF / BERT embeddings + cosine similarity)
-
-Skill extraction model (NER)
-
-Salary prediction model (Regression)
-
-Course recommendation system (Content-based filtering)
-
-💬 AI Chatbot
-
-The chatbot assists users by:
-
-Explaining job match results
-
-Suggesting learning plans
-
-Answering career-related questions
-
-🚀 Future Enhancements
-
-Multilingual resume support
-
-Real-time job scraping
-
-Mobile application
-
-Explainable AI (SHAP/LIME)
-
-Voice assistant
-
-👨‍💻 Author
+Author
 
 Abdullah Zuhry
-BSc (Hons) IT – Data Science (SLIIT)
-
 GitHub: https://github.com/Abdullahsuhry
-
-LinkedIn: https://linkedin.com/in/Abdullah-Zuhry
